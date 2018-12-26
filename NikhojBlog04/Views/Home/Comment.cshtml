@@ -1,0 +1,13 @@
+﻿@model NikhojBlog04.Models.Comment
+
+@Html.BeginForm("CreateComment", "Home", FormMethod.Post){
+
+        @Html.TextAreaFor(model => model.Text)
+
+        @Html.TextBoxFor(model => model.lostPersonPost, new { @value = @Request.QueryString["lostPersonPostID"] })
+        
+        
+        
+<input type="submit" value="Comment" />
+}
+

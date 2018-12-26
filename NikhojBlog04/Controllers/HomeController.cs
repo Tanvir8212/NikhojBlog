@@ -25,29 +25,26 @@ namespace NikhojBlog04.Controllers
         public ActionResult Index()
         {
             LostPersonPostsViewModel lostPersonPostsViewModel = new LostPersonPostsViewModel();
-            lostPersonPostsViewModel.LostPersonPosts = dbContext.LostPersonPosts.Include(l => l.User).ToList();
+            lostPersonPostsViewModel.LostPersonPosts = dbContext.LostPersonPosts.Include(l => l.User).Include(c => c.Comments).ToList();
             lostPersonPostsViewModel.Comments = dbContext.Comments.ToList();
 
             if (User.IsInRole(Role.Admin))
             {
                 return View("IndexForAdmin", lostPersonPostsViewModel);
             }
-            return View("Index", lostPersonPostsViewModel);
-
-          
-            
+            return View("Index", lostPersonPostsViewModel);          
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "This is a website to find and search lost people...";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Tanvir Mahmud Khan";
 
             return View();
         }
@@ -75,6 +72,28 @@ namespace NikhojBlog04.Controllers
             dbContext.LostPersonPosts.Add(lostPersonPost);
             dbContext.SaveChanges();
             return RedirectToAction("Index","Home");
+        }
+
+        public ActionResult Comment(int lostPersonPostID)
+        {
+            Comment c = new Comment();
+            c.lostPersonPost = new LostPersonPost();
+           
+            return View("Comment", c);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateComment(Comment c)
+        {
+
+            c.User = UserManager.FindById(User.Identity.GetUserId());
+            c.dateTime = DateTime.Now;
+            
+            dbContext.Comments.Add(c);
+            dbContext.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
 
     }

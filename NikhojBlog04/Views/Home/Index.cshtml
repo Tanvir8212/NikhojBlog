@@ -3,6 +3,34 @@
     ViewBag.Title = "Index";
 }
 
+
+<h1>@Html.ActionLink("Write your post", "Post", "Home", null, new { @class = "btn btn-primary btn-lg btn-block" })</h1>
+
+<hr />
+
+<table width="100%" >
+    <tbody >
+        <tr>
+            <th style="text-align: center; vertical-align: bottom;">
+                @Html.ActionLink("Shondhan Chai", "Index", "Home", new { Type = "ShondhanChai" }, new { @class = "btn btn-info" })
+             </th>
+            <th style="text-align: center; vertical-align: bottom;">
+                @Html.ActionLink("Shondhan Den", "Index", "Home", new { Type = "ShondhanDen" }, new { @class = "btn btn-info" })
+            </th>
+            <th style="text-align: center; vertical-align: bottom;">
+                @Html.ActionLink("Show Both", "Index", "Home", null, new { @class = "btn btn-info" })
+            </th>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+
+
+
+<hr />
+
 <table class="table">
     <thead>
         <tr>
@@ -21,21 +49,42 @@
     </thead>
     <tbody>
 
-        @foreach (var x in Model.LostPersonPosts)
+        @{
+            var listOfLostPersonPosts = Model.LostPersonPosts;
+        }
+
+        @if (Request.QueryString["Type"] == "ShondhanChai")
         {
-        <tr>
-            <th>@Html.ActionLink(@x.User.Name, "Details", "Account", new { id = x.User.Id }, null)</th>
-            <td>@x.LostPersonName</td>
-            <td>@x.LostPersonAge</td>
-            <th>@x.PostType</th>
-            <td>@x.ContactName</td>
-            <td>@x.ContactPhone</td>
-            <td>@x.ContactAddress</td>
-            <td>@x.Details</td>
-            <td>@x.dateTime</td>
-        </tr>
+            listOfLostPersonPosts = Model.LostPersonPosts.Where(l => l.PostType == "Shondhan Chai").ToList();
+        }
+        else if (Request.QueryString["Type"] == "ShondhanDen")
+        {
+            listOfLostPersonPosts = Model.LostPersonPosts.Where(l => l.PostType == "Shondhan Den").ToList();
+        }
 
+        @foreach (var x in listOfLostPersonPosts)
+        {
+            <tr>
+                <th>@Html.ActionLink(@x.User.Name, "Details", "Account", new { id = x.User.Id }, null)</th>
+                <td>@x.LostPersonName</td>
+                <td>@x.LostPersonAge</td>
+                <th>@x.PostType</th>
+                <td>@x.ContactName</td>
+                <td>@x.ContactPhone</td>
+                <td>@x.ContactAddress</td>
+                <td>@x.Details</td>
+                <td>@x.dateTime</td>
+                <td>@Html.ActionLink("Comment","Comment","Home",new { lostPersonPostID = x.id }, null)</td>
+            </tr>
+            
+            <tr>
+                @foreach(var c in x.Comments)
+                {
+                    <th>@c.Text</th>
+                }
 
+            </tr>
+            
 
         }
 
