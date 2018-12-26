@@ -3,8 +3,41 @@
     ViewBag.Title = "Index";
 }
 
-@foreach(var x in Model.LostPersonPosts)
-{
-    <h1>@x.LostPersonName</h1>
-}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Posted By</th>
+            <th scope="col">Lost Person Name</th>
+            <th scope="col">Lost Person Age</th>
+            <th scope="col">Post Type</th>
+
+
+            <th scope="col">Contact Person Name</th>
+            <th scope="col">Contact Phone</th>
+            <th scope="col">Contact Address</th>
+            <th scope="col">Details</th>
+            <th scope="col">Posted on</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var x in Model.LostPersonPosts)
+        {
+        <tr>
+            <th>@x.User.Name</th>
+            <td>@x.LostPersonName</td>
+            <td>@x.LostPersonAge</td>
+            <th>@x.PostType</th>
+            <td>@x.ContactName</td>
+            <td>@x.ContactPhone</td>
+            <td>@x.ContactAddress</td>
+            <td>@x.Details</td>
+            <td>@x.dateTime</td>
+
+
+        </tr>
+        }
+
+    </tbody>
+</table>
 

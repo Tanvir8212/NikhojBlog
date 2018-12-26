@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using NikhojBlog04.Models;
+using System.Data.Entity;
 
 namespace NikhojBlog04.Controllers
 {
@@ -24,7 +25,7 @@ namespace NikhojBlog04.Controllers
         public ActionResult Index()
         {
             LostPersonPostsViewModel lostPersonPostsViewModel = new LostPersonPostsViewModel();
-            lostPersonPostsViewModel.LostPersonPosts = dbContext.LostPersonPosts.ToList();
+            lostPersonPostsViewModel.LostPersonPosts = dbContext.LostPersonPosts.Include(l => l.User).ToList();
             lostPersonPostsViewModel.Comments = dbContext.Comments.ToList();
             return View(lostPersonPostsViewModel);
         }
@@ -55,6 +56,8 @@ namespace NikhojBlog04.Controllers
         public ActionResult CreatePost(LostPersonPost lostPersonPost)
         {
             lostPersonPost.User = UserManager.FindById(User.Identity.GetUserId());
+
+            //lostPersonPost.User = (ApplicationUser)System.Web.HttpContext.Current.User;
 
             lostPersonPost.dateTime = DateTime.Now;
 

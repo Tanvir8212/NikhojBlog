@@ -9,5 +9,6 @@ namespace NikhojBlog04.Models
     {
         public List<LostPersonPost> LostPersonPosts { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<ApplicationUser> Users { get; set; }
     }
 }
