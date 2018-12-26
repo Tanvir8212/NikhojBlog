@@ -27,7 +27,15 @@ namespace NikhojBlog04.Controllers
             LostPersonPostsViewModel lostPersonPostsViewModel = new LostPersonPostsViewModel();
             lostPersonPostsViewModel.LostPersonPosts = dbContext.LostPersonPosts.Include(l => l.User).ToList();
             lostPersonPostsViewModel.Comments = dbContext.Comments.ToList();
-            return View(lostPersonPostsViewModel);
+
+            if (User.IsInRole(Role.Admin))
+            {
+                return View("IndexForAdmin", lostPersonPostsViewModel);
+            }
+            return View("Index", lostPersonPostsViewModel);
+
+          
+            
         }
 
         public ActionResult About()

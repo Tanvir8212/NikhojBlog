@@ -17,6 +17,7 @@
             <th scope="col">Contact Address</th>
             <th scope="col">Details</th>
             <th scope="col">Posted on</th>
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
             <td>@x.ContactAddress</td>
             <td>@x.Details</td>
             <td>@x.dateTime</td>
+            <td>@Html.ActionLink("Delete", "DeletePost", "LostPersonPost", new { id = x.id }, null)</td>
         </tr>
 
 

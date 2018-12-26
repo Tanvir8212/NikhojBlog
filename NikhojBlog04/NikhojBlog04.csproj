@@ -196,6 +196,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LostPersonPostController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -208,6 +209,10 @@
     <Compile Include="Migrations\201812251850524_Table_Added_LostPersonPosts_Comments.Designer.cs">
       <DependentUpon>201812251850524_Table_Added_LostPersonPosts_Comments.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812261622537_addAdmin.cs" />
+    <Compile Include="Migrations\201812261622537_addAdmin.Designer.cs">
+      <DependentUpon>201812261622537_addAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -216,6 +221,7 @@
     <Compile Include="Models\LostPersonPost.cs" />
     <Compile Include="Models\LostPersonPostsViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -279,9 +285,12 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Post.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Home\IndexForAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\LostPerson\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -302,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812251850524_Table_Added_LostPersonPosts_Comments.resx">
       <DependentUpon>201812251850524_Table_Added_LostPersonPosts_Comments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812261622537_addAdmin.resx">
+      <DependentUpon>201812261622537_addAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
